@@ -10,4 +10,5 @@ test
 appveyor.yml
 iob_npm.done
 tsconfig.json
+tsconfig.check.json
 main kopie.js
