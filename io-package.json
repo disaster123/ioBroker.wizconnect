@@ -1,0 +1,104 @@
+{
+	"common": {
+		"name": "wizconnect",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "WIZ Connect",
+		"titleLang": {
+			"en": "WIZ Connect",
+			"de": "WIZ Connect",
+			"ru": "WIZ Connect",
+			"pt": "WIZ Connect",
+			"nl": "WIZ Connect",
+			"fr": "Connexion WIZ",
+			"it": "WIZ Connect",
+			"es": "Conexión WIZ",
+			"pl": "WIZ Połącz",
+			"zh-cn": "WIZ 连接"
+		},
+		"desc": {
+			"en": "WIZ Offline Adapter",
+			"de": "WIZ Offline-Adapter",
+			"ru": "Автономный адаптер WIZ",
+			"pt": "Adaptador offline WIZ",
+			"nl": "WIZ offline-adapter",
+			"fr": "Adaptateur hors ligne WIZ",
+			"it": "Adattatore offline WIZ",
+			"es": "Adaptador sin conexión WIZ",
+			"pl": "Adapter offline WIZ",
+			"zh-cn": "WIZ 离线适配器"
+		},
+		"authors": [
+			"nxtstep <privat@konzeptplus.net>"
+		],
+		"keywords": [
+			"WIZ",
+			"iobroker",
+			"smarthome",
+			"light",
+			"WiFi"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "wizconnect.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/basti85goe/ioBroker.wizconnect/main/admin/wizconnect.png",
+		"readme": "https://github.com/basti85goe/ioBroker.wizconnect/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "lighting",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "push",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"bind_ip": "0.0.0.0",
+		"polling_intervall": 30,
+		"register_devices": true,
+		"listed_online": 30
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
+}
