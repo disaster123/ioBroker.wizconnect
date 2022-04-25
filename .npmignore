@@ -9,4 +9,3 @@ test
 .travis.yml
 appveyor.yml
 iob_npm.done
-tsconfig.json
