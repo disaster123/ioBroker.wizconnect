@@ -7,3 +7,5 @@ admin/i18n/*/flat.txt
 push_git.sh
 iob_npm.done
 tsconfig.json
+*/iob_npm.done
+*/tsconfig.json
