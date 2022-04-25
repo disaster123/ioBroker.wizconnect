@@ -14,6 +14,18 @@
 				"es": "Versión inicial",
 				"pl": "Pierwsze wydanie",
 				"zh-cn": "首次出版"
+			},
+			"0.0.2": {
+				"en": "small updates",
+				"de": "kleine Aktualisierungen",
+				"ru": "небольшие обновления",
+				"pt": "pequenas atualizações",
+				"nl": "kleine updates",
+				"fr": "petites mises à jour",
+				"it": "piccoli aggiornamenti",
+				"es": "pequeñas actualizaciones",
+				"pl": "małe aktualizacje",
+				"zh-cn": "小更新"
 			}
 		},
 		"title": "WIZ Connect",
