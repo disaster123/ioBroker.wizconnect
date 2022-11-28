@@ -84,6 +84,8 @@
 		]
 	},
 	"native": {
+		"udpip": "",
+		"updmac": "",
 		"bind_ip": "0.0.0.0",
 		"polling_intervall": 30,
 		"register_devices": true,
