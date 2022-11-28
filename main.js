@@ -339,6 +339,13 @@ class Wizconnect extends utils.Adapter {
 		//this.log.info("config option2: " + this.config.option2);
 		//this.log.info(this.MAC);
 		
+		this.HOST = this.config.bind_ip;
+		this.MAC = this.config.udpmac.replace(/:/g, '').toUpperCase();
+		this.IP = this.config.udpip;
+		this.log.info("config option1: " + this.config.bind_ip);
+		this.log.info("config option2: " + this.config.udpmac);
+		this.log.info("config option2: " + this.config.udpip);
+		
 		await this.open_udp_sockets();
 		
 		await this.WIZ__INIT_ALL_DEVICES()
