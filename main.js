@@ -158,7 +158,7 @@ class Wizconnect extends utils.Adapter {
 						result[key] = JSON.stringify(result[key]);
 					}
 					if (key =='online') {
-						this.setState(deviceId+'.'+convert[key], {val: result[key], ack: true, expire: this.config.listed_online});
+						this.setState(deviceId+'.'+convert[key], {val: result[key], ack: true, expire: +this.config.listed_online});
 					} else {
 						this.setState(deviceId+'.'+convert[key], {val: result[key], ack: true});
 					}
