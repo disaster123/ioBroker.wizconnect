@@ -333,35 +333,17 @@ class Wizconnect extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
 
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
-		//this.log.info("config option1: " + this.config.option1);
-		//this.log.info("config option2: " + this.config.option2);
-		//this.log.info(this.MAC);
-		
 		this.HOST = this.config.bind_ip;
 		this.MAC = this.config.udpmac.replace(/:/g, '').toUpperCase();
 		this.IP = this.config.udpip;
-		this.log.info("config option1: " + this.config.bind_ip);
-		this.log.info("config option2: " + this.config.udpmac);
-		this.log.info("config option2: " + this.config.udpip);
+		this.log.info("config bind_ip: " + this.config.bind_ip);
+		this.log.info("config udpmac: " + this.config.udpmac);
+		this.log.info("config udpip: " + this.config.udpip);
 		
 		await this.open_udp_sockets();
 		
 		await this.WIZ__INIT_ALL_DEVICES()
 		
-		/*this.MESSAGEQUEUE['10.5.11.39'] = {};
-		this.WIZ__QUEUE_MESSAGE('registration',133,{"phoneMac":this.MAC,"phoneIp":this.IP,"register":true},'10.5.11.39', 38899);
-		
-		this.WIZ__QUEUE_MESSAGE('getPilot',0,{},'10.5.11.39', 38899);
-		
-		this.WIZ__QUEUE_MESSAGE('setPilot',246,{"state":false},'10.5.11.39', 38899);  
-		
-		this.WIZ__QUEUE_MESSAGE('getSystemConfig',123,{},'10.5.11.39', 38899);*/
-		
-		
-			
-
 		/*
 		// For every state in the system there has to be also an object of type state
 		// Here a simple template for a boolean variable named "testVariable"
