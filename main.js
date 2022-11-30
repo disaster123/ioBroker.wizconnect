@@ -46,6 +46,7 @@ class Wizconnect extends utils.Adapter {
 		this.SOCKETS = {};
 		this.ISONLINE = {};
 		this.MESSAGEQUEUE = {};
+		this.ipmap = {};
 		this.maxAttempt = 10;
 		this.sendTimeout = 1000;
 		
@@ -100,6 +101,9 @@ class Wizconnect extends utils.Adapter {
 		// QUEUE löschen
 		msg = JSON.parse(msg);
 		if ('result' in msg) {
+			if (client.address in this.ipmap) {
+				client.address = this.ipmap[client.address];
+			}
 			if (client.address in this.MESSAGEQUEUE) {
 				//this.log.debug(JSON.stringify(client));
 				for (const queueID in this.MESSAGEQUEUE[client.address]) {
@@ -209,6 +213,10 @@ class Wizconnect extends utils.Adapter {
 	async WIZ__SEND_MESSAGE(ip, queueID, that) {
 		if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] < that.maxAttempt) {
                         let realip = await that.getIP(ip);
+
+			that.ipmap[realip] = ip;
+			that.ipmap[ip] = realip;
+
 			that.MESSAGEQUEUE[ip][queueID]['attempt'] = ++that.MESSAGEQUEUE[ip][queueID]['attempt'];
 			
 			if (that.MESSAGEQUEUE[ip][queueID]['attempt'] > 2) {
