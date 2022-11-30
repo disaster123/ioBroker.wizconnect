@@ -100,36 +100,37 @@ class Wizconnect extends utils.Adapter {
 		const that = this;
 		// QUEUE löschen
 		msg = JSON.parse(msg);
+		let objid = client.address;
+		if (client.address in this.ipmap) {
+			objid = this.ipmap[client.address];
+		}
 		if ('result' in msg) {
-			if (client.address in this.ipmap) {
-				client.address = this.ipmap[client.address];
-			}
-			if (client.address in this.MESSAGEQUEUE) {
+			if (objid in this.MESSAGEQUEUE) {
 				//this.log.debug(JSON.stringify(client));
-				for (const queueID in this.MESSAGEQUEUE[client.address]) {
-					let data = this.MESSAGEQUEUE[client.address][queueID];
+				for (const queueID in this.MESSAGEQUEUE[objid]) {
+					let data = this.MESSAGEQUEUE[objid][queueID];
 					if (msg.method == data.message.method && client.port == data.port) {
 						
 						if (msg.method == 'getPilot' && ( msg.id == data.message.id || data.message.id == 0 ) ) {
-							delete this.MESSAGEQUEUE[client.address][queueID];
+							delete this.MESSAGEQUEUE[objid][queueID];
 							//this.log.debug(`[getPilot] ${client.address}:${client.port} success`);
 							
 							//msg.result = AllDeviceAttributes.override_with_null_not_exists()//Object.assign(AllDeviceAttributes.led_empty, msg.result);
-							this.WIZ__UPDATE_STATES(client.address, msg.result);
+							this.WIZ__UPDATE_STATES(objid, msg.result);
 							
 						} else if (msg.method == 'setPilot' &&  msg.id == data.message.id && msg.result.success == true ) {
-							delete this.MESSAGEQUEUE[client.address][queueID];
+							delete this.MESSAGEQUEUE[objid][queueID];
 							//this.log.debug(`[setPilot] ${client.address}:${client.port} success`);
 							
 						} else if (msg.method == 'getSystemConfig' && msg.id == data.message.id && 'result' in msg ) {
-							delete this.MESSAGEQUEUE[client.address][queueID];
+							delete this.MESSAGEQUEUE[objid][queueID];
 							//this.log.debug(`[getSystemConfig] ${client.address}:${client.port} success`);
-							this.WIZ__UPDATE_STATES(client.address, msg.result);
+							this.WIZ__UPDATE_STATES(objid, msg.result);
 							
 						} else if (msg.method == 'registration' && msg.id == data.message.id && 'result' in msg && msg.result.success == true ) {
-							delete this.MESSAGEQUEUE[client.address][queueID];
+							delete this.MESSAGEQUEUE[objid][queueID];
 							//this.log.debug(`[registration] ${client.address}:${client.port} success`);
-							this.WIZ__UPDATE_STATES(client.address, {'ip':client.address});
+							this.WIZ__UPDATE_STATES(objid, {'ip':client.address});
 							
 						}
 					}
@@ -139,12 +140,13 @@ class Wizconnect extends utils.Adapter {
 				this.log.debug(`No QUEUE for Client ${client.address}:${client.port} found`);
 			}
 		} else if ('params' in msg && msg.method == 'syncPilot') {
-			if (client.address in this.MESSAGEQUEUE) {
+			if (objid in this.MESSAGEQUEUE) {
 				client.port = 38899;
 				//this.log.debug(`[syncPilot] ${client.address}:${client.port} received`);
-				this.WIZ__UPDATE_STATES(client.address, msg.params);
+				this.WIZ__UPDATE_STATES(objid, msg.params);
 				
 				let message = new Buffer(`{"method":"syncPilot","result":{"mac":"${this.MAC}"}}`);
+
 				//setTimeout(function() {
 					that.SOCKETS[client.port].send(message, 0, message.length, client.port, client.address, (err) => {
 						if (err) throw err;
