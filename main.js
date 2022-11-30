@@ -13,6 +13,7 @@ const uuid = require('uuid');
 
 const ip = require("ip");
 const os = require("os");
+const dns = require('dns');
 
 const AllDeviceAttributes = require('./lib/AllDeviceAttributes.js'); // Load attribute library
 const ColorConv = require('./lib/colorconv.js'); // Load attribute library
@@ -57,6 +58,14 @@ class Wizconnect extends utils.Adapter {
 		this.on("unload", this.onUnload.bind(this));
 	}
 	
+        async getIP(hostname) {
+	    let obj = await dns.promises.lookup(hostname).catch((error)=>
+	    {
+	        console.error(error);
+	    });
+	    return obj?.address;
+	}
+
 	async open_udp_sockets() {
 		const that = this;
 		for (const i in this.PORTS) {
@@ -195,17 +204,21 @@ class Wizconnect extends utils.Adapter {
 		
 		this.WIZ__SEND_MESSAGE(ip, queueID, this);
 	}
-	
-	WIZ__SEND_MESSAGE(ip, queueID, that) {
+
+
+	async WIZ__SEND_MESSAGE(ip, queueID, that) {
 		if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] < that.maxAttempt) {
+                        let realip = await that.getIP(ip);
 			that.MESSAGEQUEUE[ip][queueID]['attempt'] = ++that.MESSAGEQUEUE[ip][queueID]['attempt'];
 			
 			if (that.MESSAGEQUEUE[ip][queueID]['attempt'] > 2) {
 				that.log.warn(`Nachricht ${queueID} gesendet -> ${ip} Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
 			}
+
+			that.log.debug(`Nachricht ${queueID} gesendet -> ${ip} ${realip} Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
 			//that.log.warn(JSON.stringify(that.MESSAGEQUEUE[ip][queueID]['message']))
-			
-			that.SOCKETS[that.MESSAGEQUEUE[ip][queueID]['port']].send(that.MESSAGEQUEUE[ip][queueID]['message_buffer'], 0, that.MESSAGEQUEUE[ip][queueID]['message_buffer'].length, that.MESSAGEQUEUE[ip][queueID]['port'], ip, (err) => {
+
+			that.SOCKETS[that.MESSAGEQUEUE[ip][queueID]['port']].send(that.MESSAGEQUEUE[ip][queueID]['message_buffer'], 0, that.MESSAGEQUEUE[ip][queueID]['message_buffer'].length, that.MESSAGEQUEUE[ip][queueID]['port'], realip, (err) => {
 				if (err) throw err;
 			});
 			
