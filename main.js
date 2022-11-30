@@ -200,7 +200,9 @@ class Wizconnect extends utils.Adapter {
 		if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] < that.maxAttempt) {
 			that.MESSAGEQUEUE[ip][queueID]['attempt'] = ++that.MESSAGEQUEUE[ip][queueID]['attempt'];
 			
-			that.log.debug(`Nachricht ${queueID} gesendet -> Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
+			if (that.MESSAGEQUEUE[ip][queueID]['attempt'] > 2) {
+				that.log.warn(`Nachricht ${queueID} gesendet -> ${ip} Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
+			}
 			//that.log.warn(JSON.stringify(that.MESSAGEQUEUE[ip][queueID]['message']))
 			
 			that.SOCKETS[that.MESSAGEQUEUE[ip][queueID]['port']].send(that.MESSAGEQUEUE[ip][queueID]['message_buffer'], 0, that.MESSAGEQUEUE[ip][queueID]['message_buffer'].length, that.MESSAGEQUEUE[ip][queueID]['port'], ip, (err) => {
