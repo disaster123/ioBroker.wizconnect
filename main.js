@@ -222,7 +222,7 @@ class Wizconnect extends utils.Adapter {
 			that.MESSAGEQUEUE[ip][queueID]['attempt'] = ++that.MESSAGEQUEUE[ip][queueID]['attempt'];
 			
 			if (that.MESSAGEQUEUE[ip][queueID]['attempt'] > 2) {
-				that.log.warn(`Nachricht ${queueID} gesendet -> ${ip} Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
+				that.log.warn(`Nachricht ${queueID} gesendet -> ${ip} ${realip} Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
 			}
 
 			that.log.debug(`Nachricht ${queueID} gesendet -> ${ip} ${realip} Versuch: ${that.MESSAGEQUEUE[ip][queueID]['attempt']}`);
@@ -234,7 +234,7 @@ class Wizconnect extends utils.Adapter {
 			
 			setTimeout(that.WIZ__SEND_MESSAGE, that.sendTimeout, ip, queueID, that);
 		} else if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] >= that.maxAttempt) {
-			that.log.info(`Nachricht ${queueID} hat keine Antwort erhalten`);
+			that.log.info(`Nachricht ${queueID} ${ip} ${realip} hat keine Antwort erhalten`);
 			delete that.MESSAGEQUEUE[ip][queueID];
 		}
 	}
