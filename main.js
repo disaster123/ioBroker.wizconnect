@@ -99,7 +99,11 @@ class Wizconnect extends utils.Adapter {
 	WIZ__RECEIVE_MESSAGE(msg, client) {
 		const that = this;
 		// QUEUE löschen
-		msg = JSON.parse(msg);
+		try {
+			msg = JSON.parse(msg);
+		} catch (err) {
+			this.log.error(err);
+		}
 		let objid = client.address;
 		if (client.address in this.ipmap) {
 			objid = this.ipmap[client.address];
