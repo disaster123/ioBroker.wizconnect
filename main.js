@@ -217,8 +217,13 @@ class Wizconnect extends utils.Adapter {
 
 
 	async WIZ__SEND_MESSAGE(ip, queueID, that) {
+                let realip = await that.getIP(ip);
+		if (!realip) {
+			that.log.error(`WIZ__SEND_MESSAGE: cannot find ip of ${ip}`);
+			// by deleting the queue we skip steps below
+			delete that.MESSAGEQUEUE[ip][queueID];
+		}
 		if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] < that.maxAttempt) {
-                        let realip = await that.getIP(ip);
 
 			that.ipmap[realip] = ip;
 			that.ipmap[ip] = realip;
@@ -238,7 +243,7 @@ class Wizconnect extends utils.Adapter {
 			
 			setTimeout(that.WIZ__SEND_MESSAGE, that.sendTimeout, ip, queueID, that);
 		} else if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] >= that.maxAttempt) {
-			that.log.info(`Nachricht ${queueID} ${ip} ${realip} hat keine Antwort erhalten`);
+			that.log.warn(`Nachricht ${queueID} ${ip} ${realip} hat keine Antwort erhalten`);
 			delete that.MESSAGEQUEUE[ip][queueID];
 		}
 	}
