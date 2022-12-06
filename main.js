@@ -176,6 +176,11 @@ class Wizconnect extends utils.Adapter {
 					if (['hsv','hsl','rgb','drvConf'].includes(key)) {
 						result[key] = JSON.stringify(result[key]);
 					}
+					if (key == 'temp' && result[key] == 0) {
+						// temp key 0 means unknown - which is invalid to set
+						// skip it
+						continue;
+					}
 					if (key =='online') {
 						this.setState(deviceId+'.'+convert[key], {val: result[key], ack: true, expire: +this.config.listed_online});
 					} else {
