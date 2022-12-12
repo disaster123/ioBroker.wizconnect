@@ -239,7 +239,9 @@ class Wizconnect extends utils.Adapter {
 			//that.log.warn(JSON.stringify(that.MESSAGEQUEUE[ip][queueID]['message']))
 
 			that.SOCKETS[that.MESSAGEQUEUE[ip][queueID]['port']].send(that.MESSAGEQUEUE[ip][queueID]['message_buffer'], 0, that.MESSAGEQUEUE[ip][queueID]['message_buffer'].length, that.MESSAGEQUEUE[ip][queueID]['port'], realip, (err) => {
-				if (err) throw err;
+				if (err) {
+					that.log.warn(`Nachricht ${queueID} konnte nicht gesendet werden: ${err}`);
+				}
 			});
 			
 			setTimeout(that.WIZ__SEND_MESSAGE, that.sendTimeout, ip, queueID, that);
