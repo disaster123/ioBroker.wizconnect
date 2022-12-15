@@ -215,9 +215,12 @@ class Wizconnect extends utils.Adapter {
 		//if (data.message.id == 0 ) delete data.message.id;
 		data['message_buffer'] = new Buffer(JSON.stringify(data.message));
 
-		this.MESSAGEQUEUE[ip][queueID] = data;
-		
-		this.WIZ__SEND_MESSAGE(ip, queueID, this);
+		try {
+		   this.MESSAGEQUEUE[ip][queueID] = data;
+		   this.WIZ__SEND_MESSAGE(ip, queueID, this);
+		} catch(e) {
+		   this.log.warn("MSG QUEUE: IP: " + ip + "Error: " + e);
+		}
 	}
 
 
