@@ -41,7 +41,8 @@ class Wizconnect extends utils.Adapter {
 		
 		this.HOST = ip.address();//'0.0.0.0';
 		this.PORTS = [38899, 38900];
-		this.MAC = os.networkInterfaces()['eth0'][0]['mac'].replace(/:/g, '').toUpperCase(); //JSON.stringify(os.networkInterfaces());//
+		// nobody knows if eth0 exists - skip this here and rely on user provided MAC
+		// this.MAC = os.networkInterfaces()['eth0'][0]['mac'].replace(/:/g, '').toUpperCase(); //JSON.stringify(os.networkInterfaces());//
 		this.IP = ip.address();
 		this.SOCKETS = {};
 		this.ISONLINE = {};
