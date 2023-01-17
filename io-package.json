@@ -54,7 +54,8 @@
 			"zh-cn": "WIZ 离线适配器"
 		},
 		"authors": [
-			"nxtstep <privat@konzeptplus.net>"
+			"nxtstep <privat@konzeptplus.net>",
+			"disaster123 <none@none.de>"
 		],
 		"keywords": [
 			"WIZ",
@@ -68,8 +69,8 @@
 		"main": "main.js",
 		"icon": "wizconnect.png",
 		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/basti85goe/ioBroker.wizconnect/main/admin/wizconnect.png",
-		"readme": "https://github.com/basti85goe/ioBroker.wizconnect/blob/main/README.md",
+		"extIcon": "https://raw.githubusercontent.com/disaster123/ioBroker.wizconnect/main/admin/wizconnect.png",
+		"readme": "https://github.com/disaster123/ioBroker.wizconnect/blob/main/README.md",
 		"loglevel": "info",
 		"mode": "daemon",
 		"type": "lighting",

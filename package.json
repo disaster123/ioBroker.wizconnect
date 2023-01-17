@@ -3,15 +3,16 @@
   "version": "0.0.2",
   "description": "WIZ Offline Adapter",
   "author": {
-    "name": "nxtstep",
-    "email": "privat@konzeptplus.net"
+    "name": "disaster123",
+    "email": "none@none.de"
   },
   "contributors": [
     {
-      "name": "Sebastian Schwill"
+      "name": "Sebastian Schwill",
+      "name": "Stefan Priebe"
     }
   ],
-  "homepage": "https://github.com/basti85goe/ioBroker.wizconnect",
+  "homepage": "https://github.com/disaster123/ioBroker.wizconnect",
   "license": "MIT",
   "keywords": [
     "WIZ",
@@ -22,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/basti85goe/ioBroker.wizconnect"
+    "url": "https://github.com/disaster123/ioBroker.wizconnect"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.0"
@@ -69,7 +70,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/basti85goe/ioBroker.wizconnect/issues"
+    "url": "https://github.com/disaster123/ioBroker.wizconnect/issues"
   },
   "readmeFilename": "README.md"
 }
