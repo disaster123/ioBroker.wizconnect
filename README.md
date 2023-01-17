@@ -1,17 +1,7 @@
 ![Logo](admin/wizconnect.png)
 # ioBroker.wizconnect
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.wizconnect.svg)](https://www.npmjs.com/package/iobroker.wizconnect)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.wizconnect.svg)](https://www.npmjs.com/package/iobroker.wizconnect)
-![Number of Installations](https://iobroker.live/badges/wizconnect-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/wizconnect-stable.svg)
-[![Dependency Status](https://img.shields.io/david/basti85goe/iobroker.wizconnect.svg)](https://david-dm.org/basti85goe/iobroker.wizconnect)
-
-[![NPM](https://nodei.co/npm/iobroker.wizconnect.png?downloads=true)](https://nodei.co/npm/iobroker.wizconnect/)
-
-**Tests:** ![Test and Release](https://github.com/basti85goe/ioBroker.wizconnect/workflows/Test%20and%20Release/badge.svg)
-
-## wizconnect adapter for ioBroker
+## wizconnect adapter for ioBroker by disaster123
 
 WIZ Offline Adapter
 
@@ -104,6 +94,8 @@ For later updates, the above procedure is not necessary. Just do the following:
 MIT License
 
 Copyright (c) 2022 nxtstep <privat@konzeptplus.net>
+Copyright (c) 2022 disaster123 <none@none.de>
+Copyright (c) 2023 disaster123 <none@none.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
