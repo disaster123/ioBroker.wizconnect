@@ -549,14 +549,13 @@ class Wizconnect extends utils.Adapter {
 	async WIZ__INIT_DEVICE(ip, name) {
 		let FUNCTION_NAME = 'WIZ__INIT_DEVICES';
 		let that = this;
-		//this.log.debug(`__START ->  ${FUNCTION_NAME} [ ${ip} : ${name} ]`);
+		this.log.debug(`__START ->  ${FUNCTION_NAME} [ ${ip} : ${name} ]`);
 
 		try {
 			const deviceId = ip.replace(/\./g, '_');
 			this.MESSAGEQUEUE[ip] = {};
-			//this.log.debug(`-> CREATE Device: ${deviceId}`);
+			this.log.debug(`-> CREATE Device: ${deviceId}`);
 			
-			//let deviceStates = AllDeviceAttributes.defaults;
 			let deviceStates = AllDeviceAttributes.MINIMAL();
 			let deviceType = "MINIMAL";
 			
@@ -566,8 +565,10 @@ class Wizconnect extends utils.Adapter {
 				deviceType = obj.val;
 				//this.log.warn(deviceType);
 			}
+			this.log.debug(`-> CREATE DeviceType: ${deviceType}`);
 			
 			if (eval('typeof AllDeviceAttributes.'+deviceType+'() !== "undefined"')) {
+			        this.log.debug(`-> CREATE DeviceType: EVAL ${deviceType}`);
 				deviceStates = eval('AllDeviceAttributes.'+deviceType+'()');
 			}
 			
