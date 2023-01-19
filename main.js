@@ -566,7 +566,14 @@ class Wizconnect extends utils.Adapter {
 				//this.log.warn(deviceType);
 			}
 			this.log.debug(`-> CREATE DeviceType: ${deviceType}`);
-			
+		
+			if (deviceType == "MINIMAL") {
+				// reschedule until we know device type...
+				setTimeout(function() {
+					that.WIZ__INIT_DEVICE(ip, name);
+				}, 5000);
+			}
+
 			if (eval('typeof AllDeviceAttributes.'+deviceType+'() !== "undefined"')) {
 			        this.log.debug(`-> CREATE DeviceType: EVAL ${deviceType}`);
 				deviceStates = eval('AllDeviceAttributes.'+deviceType+'()');
