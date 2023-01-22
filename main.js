@@ -167,9 +167,11 @@ class Wizconnect extends utils.Adapter {
 		try {
 			const deviceId = ip.replace(/\./g, '_');
 			const convert = AllDeviceAttributes.conv_wiz_iob;
-			
-			result.online = true;
+
 			result.ip = ip;
+			if (!('online' in result)) {
+				result.online = true;
+			}
 			
 			for (const key in result) {
 				if (key in convert) {
@@ -191,8 +193,6 @@ class Wizconnect extends utils.Adapter {
 					//}
 				}
 			}
-			
-			//ToDo: Online expire
 			
 		} catch (err) {
 			//this.log.debug(`__ERROR ->  ${FUNCTION_NAME} [ ${ip} : ${name} ]`);
@@ -252,6 +252,7 @@ class Wizconnect extends utils.Adapter {
 		} else if (ip in that.MESSAGEQUEUE && queueID in that.MESSAGEQUEUE[ip] && that.MESSAGEQUEUE[ip][queueID]['attempt'] >= that.maxAttempt) {
 			that.log.warn(`Nachricht ${queueID} ${ip} ${realip} hat keine Antwort erhalten`);
 			delete that.MESSAGEQUEUE[ip][queueID];
+			that.WIZ__UPDATE_STATES(ip, {'online': false});
 		}
 	}
 	
